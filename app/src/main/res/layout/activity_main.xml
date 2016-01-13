@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:label="Student Records Application"
+        tools:context="sealab.cs.umanitoba.com.studentrecordkeeper.MainActivity">
+
+        <TextView
+            android:id="@+id/student_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="3dip"
+            android:paddingTop="3dip"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:text="Students"
+            android:layout_alignTop="@android:id/list"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Add"-->
+        <!--android:id="@+id/btnAdd"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true" />-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnAdd"
+            android:background="@android:drawable/screen_background_dark"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="bottom|end"
+            android:src="@android:drawable/ic_menu_add"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@android:id/list"
+            android:paddingLeft="6dip"
+            android:paddingTop="50dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/btnShowFileAction" />
+
+        <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="List All"-->
+        <!--android:id="@+id/btnGetAll"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_toRightOf="@+id/btnAdd" />-->
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="File Read/Write Activity Button"
+            android:id="@+id/btnShowFileAction"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+        <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Write to file"-->
+        <!--android:id="@+id/btnWriteToFile"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_toRightOf="@+id/btnGetAll" />-->
+        <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Read from file"-->
+        <!--android:id="@+id/btnReadFromFile"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_toRightOf="@+id/btnWriteToFile" />-->
+
+    </RelativeLayout>

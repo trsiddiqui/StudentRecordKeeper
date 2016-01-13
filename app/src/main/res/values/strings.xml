@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Student Records Manager</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_example">ExampleActivity</string>
+    <string name="title_activity_file_writing">FileWriting</string>
+    <string name="title_activity_fade_in">FadeInActivity</string>
+</resources>
