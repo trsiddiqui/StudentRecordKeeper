@@ -7,7 +7,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="sealab.cs.umanitoba.com.studentrecordkeeper.StudentDetail">
+    tools:context=".activity.StudentDetail">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,14 +85,39 @@
                 android:layout_alignStart="@+id/editTextEmail"
                 android:layout_alignRight="@+id/editTextEmail"
                 android:layout_alignEnd="@+id/editTextEmail" />
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/btnSave"
-                android:layout_width="180px"
-                android:layout_height="180px"
-                android:layout_gravity="bottom|end"
-                android:src="@android:drawable/ic_menu_save"
-                android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/editTextAge"
-                android:layout_alignEnd="@+id/editTextAge" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:id="@+id/btnSave"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/btnClose" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close"
+        android:id="@+id/btnClose"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/btnDelete"
+        android:layout_alignTop="@+id/btnSave"
+        android:layout_toLeftOf="@+id/btnSave" />
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:id="@+id/btnSave"-->
+                <!--android:layout_width="180px"-->
+                <!--android:layout_height="180px"-->
+                <!--android:layout_gravity="bottom|end"-->
+                <!--android:src="@android:drawable/ic_menu_save"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_alignRight="@+id/editTextAge"-->
+                <!--android:layout_alignEnd="@+id/editTextAge" />-->
 
         </RelativeLayout>

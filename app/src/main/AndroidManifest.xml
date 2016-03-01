@@ -9,7 +9,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Student Record Manager"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".activity.MainActivity"
             android:label="Student Record Manager"
             android:icon="@mipmap/ic_launcher">
             <intent-filter>
@@ -17,9 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StudentDetail" />
+        <activity android:name=".activity.StudentDetail" />
         <activity
-            android:name=".FileWriting"
+            android:name=".activity.FileWriting"
             android:label="Read/Write to File"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

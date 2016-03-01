@@ -1,4 +1,4 @@
-package sealab.cs.umanitoba.com.studentrecordkeeper;
+package sealab.cs.umanitoba.com.studentrecordkeeper.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+
+import sealab.cs.umanitoba.com.studentrecordkeeper.R;
 
 public class FileWriting extends AppCompatActivity   implements android.view.View.OnClickListener{
     Button btnSave,btnShow,btnCancel;

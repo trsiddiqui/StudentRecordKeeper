@@ -1,4 +1,4 @@
-package sealab.cs.umanitoba.com.studentrecordkeeper;
+package sealab.cs.umanitoba.com.studentrecordkeeper.model;
 
 public class Student {
     // Labels table name

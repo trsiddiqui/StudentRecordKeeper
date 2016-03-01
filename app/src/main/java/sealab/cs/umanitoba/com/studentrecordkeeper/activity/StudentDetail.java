@@ -1,21 +1,26 @@
-package sealab.cs.umanitoba.com.studentrecordkeeper;
-import android.content.Intent;
+package sealab.cs.umanitoba.com.studentrecordkeeper.activity;
+import android.app.AlertDialog;
 import android.content.Context;
-import android.support.design.widget.FloatingActionButton;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import sealab.cs.umanitoba.com.studentrecordkeeper.R;
+import sealab.cs.umanitoba.com.studentrecordkeeper.controller.StudentController;
+import sealab.cs.umanitoba.com.studentrecordkeeper.dao.StudentRepo;
+import sealab.cs.umanitoba.com.studentrecordkeeper.model.Student;
+
 public class StudentDetail extends AppCompatActivity implements android.view.View.OnClickListener{
-    FloatingActionButton btnSave;
+    Button btnSave, btnDelete, btnClose;
     EditText editTextName;
     EditText editTextEmail;
     EditText editTextAge;
@@ -26,8 +31,13 @@ public class StudentDetail extends AppCompatActivity implements android.view.Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_detail);
         //attaching click listener to button
-        btnSave = (FloatingActionButton) findViewById(R.id.btnSave);
+        btnSave = (Button) findViewById(R.id.btnSave);
+        btnDelete = (Button) findViewById(R.id.btnDelete);
+        btnClose = (Button) findViewById(R.id.btnClose);
+
         btnSave.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
+        btnClose.setOnClickListener(this);
         //disabling the button for validation, this will be enabled if all the fields on the page are validated
         btnSave.setEnabled(false);
         //findViewById gets reference to the widget by ID
@@ -38,10 +48,13 @@ public class StudentDetail extends AppCompatActivity implements android.view.Vie
         _Student_Id =0;
         Intent intent = getIntent();
         _Student_Id =intent.getIntExtra("student_Id", 0);
-        //setting default texts
-        editTextAge.setText("");
-        editTextName.setText("");
-        editTextEmail.setText("");
+        StudentController repo = new StudentRepo(this);
+        Student student = new Student();
+        student = repo.getStudentById(_Student_Id);
+
+        editTextAge.setText(String.valueOf(student.age));
+        editTextName.setText(student.name);
+        editTextEmail.setText(student.email);
         //attaching text changed listener, so every time you write something in the textbox, validation will occur and if passed button will be enable. Currently the validation is only checking if the fields are empty and the email is in correct format. You can write custom validations here.
         TextWatcher listener = new TextWatcher(){
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -56,49 +69,51 @@ public class StudentDetail extends AppCompatActivity implements android.view.Vie
     }
 
     public void onClick(View view) {
-        if (view == findViewById(R.id.btnSave)) {
-            //reading data to file. Since we have saved our data to file, we need to know the id of the new item to be inserted. So we will fetch the last item, and increment its id by 1 as the new items id.
-            StringBuffer fileContent = new StringBuffer("");
-            try {
-                FileInputStream f = openFileInput(filename);
-
-                byte[] buffer = new byte[1024];
-                int n = 0;
-                while ((n = f.read(buffer)) != -1) {
-                    fileContent.append(new String(buffer, 0, n));
-                }
-            } catch (java.io.IOException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Adding first record.", Toast.LENGTH_SHORT).show();
-            }
-            String[] data = fileContent.toString().split("~");
-            int lastId = 0;
-            if (!fileContent.toString().isEmpty()) {
-                lastId = Integer.parseInt(data[data.length - 1].split(",")[0]);
-            }
+        if (view == findViewById(R.id.btnSave)){
+            StudentController repo = new StudentRepo(this);
             Student student = new Student();
-            student.student_ID = lastId + 1;
-            student.age = Integer.parseInt(editTextAge.getText().toString());
-            student.email = editTextEmail.getText().toString();
-            student.name = editTextName.getText().toString();
-            //preparing the string to be appended to the string for the new record
-            String s = "";
-            s = "~" + student.student_ID + "," + student.name + "," + student.age + "," + student.email + "~";
-            //writing the final data string to file
-            FileOutputStream outputStream;
-            try {
-                outputStream = openFileOutput(filename, Context.MODE_APPEND);
-                outputStream.write(s.getBytes());
-                outputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+
+            student.age= Integer.parseInt(editTextAge.getText().toString());
+            student.email=editTextEmail.getText().toString();
+            student.name=editTextName.getText().toString();
+            student.student_ID=_Student_Id;
+
+            if (_Student_Id==0){
+                _Student_Id = repo.insert(student);
+
+                Toast.makeText(this,"New Student Insert",Toast.LENGTH_SHORT).show();
+            }else{
+
+                repo.update(student);
+                Toast.makeText(this,"Student Record updated",Toast.LENGTH_SHORT).show();
+
             }
-            Toast.makeText(this, "First Record Added, Tada", Toast.LENGTH_SHORT).show();
-            //finish will exit and destroy this activity and will go back to the one it is called from
+        }else if (view== findViewById(R.id.btnDelete)){
+
+            confirm(_Student_Id, this);
+        }else if (view== findViewById(R.id.btnClose)){
             finish();
         }
     }
-    @Override public void finish(){
+
+    private void confirm(final int student_ID, final StudentDetail reference) {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to delete this record?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        StudentController repo = new StudentRepo(reference);
+                        repo.delete(_Student_Id);
+                        Toast.makeText(reference, "Student Record Deleted", Toast.LENGTH_SHORT);
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+    @Override
+    public void finish(){
         super.finish();
         //if you want to do some tasks like garbage removal or need to close any open adapters or connection, you should do that here.
     }
